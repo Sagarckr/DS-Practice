@@ -1,0 +1,11 @@
+| Shortcut          | Action                                             |
+| ----------------- | -------------------------------------------------- |
+| **Esc** → **M**   | Convert the selected cell to a **Markdown** cell.  |
+| **Esc** → **Y**   | Convert the selected cell back to a **Code** cell. |
+| **Enter**         | Edit the current cell.                             |
+| **Shift + Enter** | Run the current cell and move to the next one.     |
+| **Ctrl + Enter**  | Run the current cell and stay on it.               |
+| **Alt + Enter**   | Run the current cell and insert a new cell below.  |
+| **A**             | Insert a new cell **above** (Command Mode).        |
+| **B**             | Insert a new cell **below** (Command Mode).        |
+| **D, D**          | Delete the selected cell (press **D** twice).      |
