@@ -1,0 +1,50 @@
+NLP
+--------------------------
+Tokenization
+
+ChatGPT -> 15M Token
+
+What is an animal ? -> 5 token # each word is token
+
+15M -5
+
+Image -> 3
+
+ai convert image provided img into 15 * 15 px 
+nose -> 15 * 15 px -> 225
+legs -> 15 * 15 px -> 225
+tail -> 15 * 15 px -> 225
+ear -> 15 * 15 px -> 225
+eye -> 15 * 15 px -> 225
+mouth -> 15 * 15 px -> 225
+black-stripes -> 15 * 15 px -> 225
+white-stripesgrass -> 15 * 15 px -> 225
+tree -> 15 * 15 px -> 225
+sand -> 15 * 15 px -> 225
+
+total 2700 * 3 = 8100 token
+
+
+Sentence
+-------------------------
+NLP Stop Words (Removing common Words)
+
+Common Word Vector []
+
+Unique Word Vector []
+
+
+
+I don't like this movie -> estract movie only
+
+-------------------------
+Lemmatization -> Gives similar meaning:
+Animal -> Amimal
+
+
+Word Meaning Support / POS (Part of Speech) Tagging
+Question
+--------------------------
+Adjective
+Verb
+Noun
