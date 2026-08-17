@@ -1,7 +1,7 @@
 # Frontend - Streamlit
 
 import streamlit as st
-from models import gemini
+from Streamlit.Gemini.models import gemini
 
 st.header('GEMINI APP')
 st.subheader('Version 3.6 Flash')
