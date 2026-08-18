@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from models import cardio
 
@@ -204,3 +206,20 @@ if st.button('Predict Cardio'):
         st.warning(
             'Cardiovascular disease found.'
         )
+
+# Visualization
+st.subheader('Visualization')
+fig, axes = plt.subplots(figsize = (6,4))
+sns.heatmap(cm, annot=True, fmt='1.0f', xticklabels = ['Predicted Healthy[0]', 'Predicted Unhealthy[1]'],
+        yticklabels = ['Actual Healthy[0]', 'Actual Unhealthy[1]'])
+plt.title('Actual Cardio vs. Predicted Cardio')
+st.pyplot(fig)
+
+### Classification Report
+st.subheader('Classification Report')
+
+data = pd.DataFrame(cr)
+# data
+
+st.dataframe(data.style.format(precision=2))
+

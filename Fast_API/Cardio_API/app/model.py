@@ -1,13 +1,14 @@
+# ML Models -> JOBLIB / Pickle
+
 import pandas as pd
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import classification_report, confusion_matrix
-
+import joblib # to convert ML models to binary format
 
 # Load dataset
-df = pd.read_csv('Cardiovascular_Disease.csv')
+df = pd.read_csv('data/Cardiovascular_Disease.csv')
 
 
 # -----------------------------
@@ -24,6 +25,9 @@ df = df[
     (df['ap_hi'].between(100, 200)) &
     (df['ap_lo'].between(50, 90))
 ]
+
+MODEL_PATH = 'models/logistic/logistic_model.pk1'
+SCALER_PATH = 'models/logistic/logistic_scaler.pk1'
 
 
 # -----------------------------
@@ -86,22 +90,11 @@ def cardio():
     # Prediction
     Y_pred = model.predict(X_test_scale)
 
-
-    # Evaluation
-    cr = classification_report(
-        Y_test,
-        Y_pred,
-        output_dict=True
-    )
-
-    cm = confusion_matrix(
-        Y_test,
-        Y_pred
-    )
-
+    joblib.dump(model, MODEL_PATH)
+    joblib.dump(scaler, SCALER_PATH)
 
     # Return all 6 values
-    return features, scaler, model, Y_pred, cr, cm
+    return scaler, model
 
 
 # also include this write full code
