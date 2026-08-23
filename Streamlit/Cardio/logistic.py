@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import requests
 
 from models import cardio
 
@@ -19,6 +20,9 @@ features, scaler, model, Y_pred, cr, cm = cardio()
 
 st.header('Cardiovascular Disease Prediction')
 st.subheader('Using Logistic Regression')
+
+
+API_URL = "http://127.0.0.1:8000/predict-logistic-cardio"
 
 
 # -----------------------------
@@ -162,50 +166,84 @@ active = st.sidebar.radio(
 # Prediction Button
 # -----------------------------
 
+# if st.button('Predict Cardio'):
+
+#     # Create input DataFrame
+#     data = pd.DataFrame(
+#         [[
+#             age,
+#             gender,
+#             height,
+#             weight,
+#             ap_hi,
+#             ap_lo,
+#             cholesterol,
+#             gluc,
+#             smoke,
+#             alco,
+#             active
+#         ]],
+#         columns=features
+#     )
+
+
+#     # Scale input data
+#     data_scale = scaler.transform(data)
+
+
+#     # Prediction
+#     prediction = model.predict(data_scale)[0]
+
+
+#     # -------------------------
+#     # Display Result
+#     # -------------------------
+
+#     if prediction == 0:
+
+#         st.success(
+#             'No cardiovascular disease found.'
+#         )
+
+#     else:
+
+#         st.warning(
+#             'Cardiovascular disease found.'
+#         )
+
+
 if st.button('Predict Cardio'):
+    payload = {
+        'age': age,
+        'gender': gender,
+        'height': height,
+        'weight': weight,
+        'ap_hi': ap_hi,
+        'ap_lo': ap_lo,
+        'cholesterol': cholesterol,
+        'gluc': gluc,
+        'smoke': smoke,
+        'alco': alco,
+        'active': active
+    }
 
-    # Create input DataFrame
-    data = pd.DataFrame(
-        [[
-            age,
-            gender,
-            height,
-            weight,
-            ap_hi,
-            ap_lo,
-            cholesterol,
-            gluc,
-            smoke,
-            alco,
-            active
-        ]],
-        columns=features
-    )
+    try:
+        response = requests.post(API_URL, json = payload)
+        if response.status_code == 200:
+            result = response.json()
 
+            if result['Prediction Stats'] == 0:
+                st.write('Likely to be healthy')
+                st.success('No cardiovascular disease found.')
+            else:
+                st.write('Likely to be unhealthy')
+                st.success('Cardiovascular disease found.')
 
-    # Scale input data
-    data_scale = scaler.transform(data)
+        else:
+            st.error(f'API Status Code Error: {response.status_code}')
+    except requests.exceptions.RequestException as e:
+        st.error(f'API Error: {e}')
 
-
-    # Prediction
-    prediction = model.predict(data_scale)[0]
-
-
-    # -------------------------
-    # Display Result
-    # -------------------------
-
-    if prediction == 0:
-
-        st.success(
-            'No cardiovascular disease found.'
-        )
-
-    else:
-
-        st.warning(
-            'Cardiovascular disease found.'
-        )
 
 # Visualization
 st.subheader('Visualization')
