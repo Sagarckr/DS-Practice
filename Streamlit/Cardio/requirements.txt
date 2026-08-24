@@ -1,0 +1,8 @@
+# frontend requirements
+
+pandas
+streamlit
+scikit-learn
+seaborn
+matplotlib
+requests
